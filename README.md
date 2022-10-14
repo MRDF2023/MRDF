@@ -15,26 +15,33 @@ mvn install
 
 ### Execution
 ```
-hadoop jar <BUILD_JAR_FILE> mrdf.MRDF -DnumVectors=<#Vectors> -DdimVector=<Dimension> -Dinput=<INPUT_DATASET>
+hadoop jar <BUILD_JAR_FILE> mrdf.MRDF -DnumVectors=<#Vectors> -DdimVector=<Dimension> -Dinput=<INPUT_DATASET> [options]
 ```
 
 ### Parameters
 
 ```
+-Doutput   File name for the output graph (default: result)
+
 -Dk        Number of neighbors (default: 30)
 
--DM        Upper bound of the subset size (default: 150000)
+-DM        Upper bound of the subset size (MRDF only) (default: 150000)
 
--Drho      Multiway dividing factor (default: 15)
+-Drho      Multiway dividing factor (MRDF only) (default: 15)
 
--Dtau      Early termination (default: 0.01)
+-Dtau      Early termination (MRDF only) (default: 0.01)
 
--Doutput   File name for the output graph (default: mrdf)
+-Dsample   Sampling rate (NNDMR only) (default: 0.5)
+ 
+-Det       Early termination (NNDMR only) (default: 0.001)
 ```
 
 - example
 ```
-hadoop jar knng.jar mrdf.MRDF -DnumVectors=1000000 -DdimVector=128 -Dinput=SIFT1M -Dk=50 -DM=300000 -Drho=10 -Dtau=0.001 -Doutput=myresult
+hadoop jar mrdf-1.0.jar mrdf.MRDF -DnumVectors=1000000 -DdimVector=128 -Dinput=SIFT1M -Doutput=mrdf -Dk=50 -DM=300000 -Drho=10 -Dtau=0.001 
+```
+```
+hadoop jar mrdf-1.0.jar nndmr.NNDMR -DnumVectors=1193514 -DdimVector=50 -Dinput=Glove1M -Doutput=nndmr -Dk=40 -Dsample=0.7 -Det=0.005
 ```
 <br>
 
@@ -44,16 +51,16 @@ hadoop jar knng.jar mrdf.MRDF -DnumVectors=1000000 -DdimVector=128 -Dinput=SIFT1
 
 | Dataset | Description | Dimension | #Vectors | Source |
 | --- | --- | --- | --- | --- |
-| SIFT1M | Flickr images with the scale-invariant feature transform (SIFT) descriptor | 128 | 1,000,000 | [What](http://corpus-texmex.irisa.fr/) |
-| Glove1M | Global vectors for word representation in web dataset | 50 | 1,193,514 | [does](https://nlp.stanford.edu/projects/glove/) |
-| SUSY5M | Kinematic properties measured by the particle detectors in the accelerator, produced by monte-carlo simulation | 128 | 5,000,000 | [source](https://archive.ics.uci.edu/ml/datasets/SUSY) |
-| Deep1B | Vectors represented by inferencing the ImageNet dataset through the GoogleNet model | 128 | 1,000,000,000 | [means](http://sites.skoltech.ru/compvision/noimi/) |
+| SIFT1M | Flickr images with the scale-invariant feature transform (SIFT) descriptor | 128 | 1,000,000 | [irisa.fr](http://corpus-texmex.irisa.fr/) |
+| Glove1M | Global vectors for word representation in web dataset | 50 | 1,193,514 | [nlp.stanford.edu](https://nlp.stanford.edu/projects/glove/) |
+| SUSY5M | Kinematic properties measured by the particle detectors in the accelerator, produced by monte-carlo simulation | 18 | 5,000,000 | [ics.uci.edu](https://archive.ics.uci.edu/ml/datasets/SUSY) |
+| Deep1B | Vectors represented by inferencing the ImageNet dataset through the GoogleNet model | 96 | 1,000,000,000 | [skoltech.ru](http://sites.skoltech.ru/compvision/noimi/) |
 
 ### Format
 
 MRDF requires a plain text file as an input, and each vector must be combined with the node number, which starts from 0.
 
-For example, four vectors in 5-dimension looks like below:
+Following example shows a input text file of, four vectors in 5-dimension:
 ```
 0 -0.12936 0.23527 0.96521 -0.17349 -0.56396
 1 0.44724 0.54932 -0.10395 0.79839 -0.35423
