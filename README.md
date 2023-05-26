@@ -25,7 +25,7 @@ hadoop jar <BUILD_JAR_FILE> mrdf.MRDF -DnumVectors=<#Vectors> -DdimVector=<Dimen
 
 -Dk        Number of neighbors (default: 30)
 
--DM        Upper bound of the subset size (MRDF only) (default: 150000)
+-Dalpha    Upper bound of the subset size (MRDF only) (default: 150000)
 
 -Drho      Multiway dividing factor (MRDF only) (default: 15)
 
@@ -38,7 +38,7 @@ hadoop jar <BUILD_JAR_FILE> mrdf.MRDF -DnumVectors=<#Vectors> -DdimVector=<Dimen
 
 - example
 ```
-hadoop jar mrdf-1.0.jar mrdf.MRDF -DnumVectors=1000000 -DdimVector=128 -Dinput=SIFT1M -Doutput=mrdf -Dk=50 -DM=300000 -Drho=10 -Dtau=0.001 
+hadoop jar mrdf-1.0.jar mrdf.MRDF -DnumVectors=1000000 -DdimVector=128 -Dinput=SIFT1M -Doutput=mrdf -Dk=50 -Dalpha=300000 -Drho=10 -Dtau=0.001 
 ```
 ```
 hadoop jar mrdf-1.0.jar nndmr.NNDMR -DnumVectors=1193514 -DdimVector=50 -Dinput=Glove1M -Doutput=nndmr -Dk=40 -Dsample=0.7 -Det=0.005
