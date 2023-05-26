@@ -254,7 +254,7 @@ public class MRDF extends Configured implements Tool {
             conf = context.getConfiguration();
             InfoWritable.dimVector = VectorIDWritable.dimVector = conf.getInt("dimVector", 0);
             div = InfoWritable.div = Reservoir.div = conf.getInt("rho", 15);
-            leaf = conf.getInt("M", 150000);
+            leaf = conf.getInt("alpha", 150000);
             itr = conf.getInt("itr", 0);
             splitter = conf.get("splitter");
             curInputPath = conf.get("curInputPath");
@@ -567,7 +567,7 @@ public class MRDF extends Configured implements Tool {
             k = conf.getInt("k", 30);
             sampleSize = k;
             threshold = 0.001f;
-            leaf = conf.getInt("M", 150000);
+            leaf = conf.getInt("alpha", 150000);
 
             ids = new int[leaf];
             vectors = new float[leaf][dimVector];
